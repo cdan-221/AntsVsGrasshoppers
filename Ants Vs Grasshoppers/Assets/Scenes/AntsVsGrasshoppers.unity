@@ -1687,7 +1687,7 @@ GameObject:
   - component: {fileID: 846686180}
   - component: {fileID: 846686182}
   - component: {fileID: 846686181}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Terrain_0_0_b2e3adea-9c15-4d71-b682-95dbe1fd4b97
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2177,7 +2177,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1447310151}
   - component: {fileID: 1447310150}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TerrainGroup_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
