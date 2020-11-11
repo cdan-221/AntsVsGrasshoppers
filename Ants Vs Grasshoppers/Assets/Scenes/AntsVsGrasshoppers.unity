@@ -1173,6 +1173,46 @@ PrefabInstance:
       propertyPath: m_Name
       value: AntVsGrasshopperCharacters
       objectReference: {fileID: 0}
+    - target: {fileID: 5438868882107129789, guid: 739a51e0a4242fe4db2ba662c88bba86,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -95
+      objectReference: {fileID: 0}
+    - target: {fileID: 5438868882107129789, guid: 739a51e0a4242fe4db2ba662c88bba86,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -16
+      objectReference: {fileID: 0}
+    - target: {fileID: 5438868883116615141, guid: 739a51e0a4242fe4db2ba662c88bba86,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 190.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5438868883116615141, guid: 739a51e0a4242fe4db2ba662c88bba86,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -57.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5438868883529280128, guid: 739a51e0a4242fe4db2ba662c88bba86,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -110.939995
+      objectReference: {fileID: 0}
+    - target: {fileID: 5438868883529280128, guid: 739a51e0a4242fe4db2ba662c88bba86,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -15.999993
+      objectReference: {fileID: 0}
+    - target: {fileID: 5438868883672466207, guid: 739a51e0a4242fe4db2ba662c88bba86,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 190.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5438868883672466207, guid: 739a51e0a4242fe4db2ba662c88bba86,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -68.40999
+      objectReference: {fileID: 0}
     - target: {fileID: 8423786271792191019, guid: 739a51e0a4242fe4db2ba662c88bba86,
         type: 3}
       propertyPath: m_LocalPosition.x
