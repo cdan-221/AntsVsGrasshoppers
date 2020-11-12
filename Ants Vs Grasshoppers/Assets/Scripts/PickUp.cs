@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class PickUp : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+public Transform onHand;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+void OnMouseDown() {
+ GetComponent<Rigidbody>().useGravity = false;
+ this.transform.position = onHand.transform.position;
+ this.transform.parent = GameObject.Find("ThirdPersonPlayer").transform;
+}
+
+void OnMouseUp (){
+ this.transform.parent = null;
+ GetComponent<Rigidbody>().useGravity = true;
+}
 }
