@@ -6,6 +6,8 @@ TagManager:
   tags:
   - AntPlayer
   - GrasshopperPlayer
+  - AntBase
+  - GrasshopperBase
   layers:
   - Default
   - TransparentFX
