@@ -128,7 +128,7 @@ public class GrasshopperCharacterMover : MonoBehaviour
 			Debug.Log("slot 1 emptied! \n current load weight = " + currentLoad);
 		}
 
-		gameHandler.GetComponent<GameHandlerAntsGrasshoppers>().updateScore("ant", currentLoad);
+		gameHandler.GetComponent<GameHandlerAntsGrasshoppers>().updateScore("Grasshopper", currentLoad);
 		Debug.Log("Current load weight = " + currentLoad);
 		currentLoad = 0;
 	}
@@ -168,7 +168,6 @@ public class GrasshopperCharacterMover : MonoBehaviour
 
 		playerVelocity.y += gravity * Time.deltaTime;
 		controller.Move(playerVelocity * Time.deltaTime);
-
 
 
 		//jump: https://docs.unity3d.com/ScriptReference/CharacterController.Move.html?_ga=2.64109231.1055814972.1604523466-1492216195.1601062187
