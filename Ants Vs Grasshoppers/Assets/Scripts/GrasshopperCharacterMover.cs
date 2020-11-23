@@ -5,8 +5,8 @@ using UnityEngine;
 public class GrasshopperCharacterMover : MonoBehaviour
 {
 	public GameHandlerAntsGrasshoppers gameHandler;
-	//public CharacterController controller;
-	Rigidbody rb;
+	public CharacterController controller;
+	//Rigidbody rb;
 	//Animator anim;
 	public Transform cam;
 
@@ -41,13 +41,13 @@ public class GrasshopperCharacterMover : MonoBehaviour
 
 	void Start(){
 		//anim = gameObject.GetComponentInChildren<Animator>();
-		rb = gameObject.GetComponent<Rigidbody>();
+		//rb = gameObject.GetComponent<Rigidbody>();
 	}
 
 
 	void Update () {
-		float horiz = Input.GetAxisRaw("GrasshopperHoriz");
-		float vert = Input.GetAxisRaw("GrasshopperVert");
+		float horiz = Input.GetAxisRaw("P2Horiz");
+		float vert = Input.GetAxisRaw("P2Vert");
 		Vector3 direct = new Vector3(horiz, 0f, vert).normalized;
 
 		if (direct.magnitude >= 0.1f) {
@@ -55,10 +55,38 @@ public class GrasshopperCharacterMover : MonoBehaviour
 			float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
 			transform.rotation = Quaternion.Euler(0f, angle, 0f);
 			Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
-			//controller.Move(moveDir.normalized * speed * Time.deltaTime);
-			rb.MovePosition(transform.position + moveDir * speed * Time.deltaTime);
+			controller.Move(moveDir.normalized * speed * Time.deltaTime);
+			//rb.MovePosition(transform.position + moveDir * speed * Time.deltaTime);
 		}
+
+		//JUMP
+
+		groundedPlayer = controller.isGrounded;
+		if (Input.GetButtonDown("Jump") && groundedPlayer)
+		{
+			playerVelocity.y += Mathf.Sqrt(jumpHeight * -2.0f * gravity);
+		}
+
+		playerVelocity.y += gravity * Time.deltaTime;
+		controller.Move(playerVelocity * Time.deltaTime);
+
+
+		//jump: https://docs.unity3d.com/ScriptReference/CharacterController.Move.html?_ga=2.64109231.1055814972.1604523466-1492216195.1601062187
+
+//		isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+//		if (isGrounded && velocity.y < 0){
+//			velocity.y = -2f;
+//		}
+//
+//		if (Input.GetButtonDown("Jump") && isGrounded){
+//			velocity.y = Mathf.Sqrt(jumpHeight * -2 * gravity);
+//		}
+//
+//		//GRAVITY
+//		velocity.y += gravity * Time.deltaTime;
+//		controller.Move(velocity * Time.deltaTime);
 	}
+
 
 	public void OnTriggerEnter(Collider other){
 		if (other.gameObject.layer == 10){
@@ -132,57 +160,5 @@ public class GrasshopperCharacterMover : MonoBehaviour
 		Debug.Log("Current load weight = " + currentLoad);
 		currentLoad = 0;
 	}
-} 
 
-
-//trigger:
-// simply hitting object collider: OnCollisionEnter(){if layer == 10}
-//by keypress: if inside of object trigger collider, then activate display of "hit [] to pickup"
-//object has weight variable and activates PickUpFood() function in characetr script  
-//then if the player picks it up, turn off colliders so bumping the other chracter does not re-trigger 
-
-//public void PickUpFood(){
-	//need a public variable for the gameobject in collision
-	//make a boolean for each slot: slot1isOpen
-	//make an int for capacity and an int for current load (maximum for ant =3, gh=4?)
-	//check current weight first: check availabel weight of player capacity, check objt weight (temp int availabelCapacity = capacity - load, if objWeight <= availablecapacity)
-	//check to see if slot 1 is open. if it is, add object weigth to current load, move the object to that slot, parent it, and turn off RB and collider.
-	//if not, check slot 2 and slot 3
-	// if no slot available, indicate that the player is at maximum capacity!
-//}
-
-//public void PutDownFood(){
-	//triggered by coliding with homebase
-	//delete all objects in the slots (need gameobject variables for each slot, to then delete them)
-	// send current load value to add to score GameObject
-	//set current load value to zero
-
-//}
-		//JUMP
-
-		groundedPlayer = controller.isGrounded;
-		if (Input.GetButtonDown("Jump") && groundedPlayer)
-		{
-			playerVelocity.y += Mathf.Sqrt(jumpHeight * -2.0f * gravity);
-		}
-
-		playerVelocity.y += gravity * Time.deltaTime;
-		controller.Move(playerVelocity * Time.deltaTime);
-
-
-		//jump: https://docs.unity3d.com/ScriptReference/CharacterController.Move.html?_ga=2.64109231.1055814972.1604523466-1492216195.1601062187
-
-//		isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
-//		if (isGrounded && velocity.y < 0){
-//			velocity.y = -2f;
-//		}
-//
-//		if (Input.GetButtonDown("Jump") && isGrounded){
-//			velocity.y = Mathf.Sqrt(jumpHeight * -2 * gravity);
-//		}
-//
-//		//GRAVITY
-//		velocity.y += gravity * Time.deltaTime;
-//		controller.Move(velocity * Time.deltaTime);
-	}
 } 
