@@ -5,7 +5,6 @@ using UnityEngine;
 public class AntCharacterMover : MonoBehaviour
 {
 	public GameHandlerAntsGrasshoppers gameHandler;
-	//public CharacterController controller;
 	Rigidbody rb;
 	//Animator anim;
 	public Transform cam;
@@ -128,6 +127,28 @@ public class AntCharacterMover : MonoBehaviour
 		Debug.Log("Current load weight = " + currentLoad);
 		currentLoad = 0;
 	}
+
+	public void LoseFood(){
+		if (slot3isOpen == false){
+			//CHANGE THIS so instead of destroying food, it unparents it: slot3Food.gameObject.parent=null;
+			Destroy(slot3Food.gameObject);
+			slot3isOpen = true;
+			Debug.Log("slot 3 food lost!");
+		}
+		if (slot2isOpen == false){
+			Destroy(slot2Food.gameObject);
+			slot2isOpen = true;
+			Debug.Log("slot 2 food lost!");
+		}
+		if (slot1isOpen == false){
+			Destroy(slot1Food.gameObject);
+			slot1isOpen = true;
+			Debug.Log("slot 1 food lost!");
+		}
+
+		currentLoad = 0;
+	}
+
 } 
 
 
