@@ -47,7 +47,7 @@ public class EnemyMoveHit : MonoBehaviour {
 		if (other.gameObject.tag == "GrasshopperPlayer"){
 			other.gameObject.transform.position = GrasshopperHome.position;
 			//make player drop all food
-			other.gameObject.GetComponent<AntCharacterMover>().LoseFood();
+			other.gameObject.GetComponent<GrasshopperCharacterMover>().LoseFood();
 			rend.material.color = new Color(2.4f, 0.9f, 0.9f, 0.5f);
 		}
 	}
