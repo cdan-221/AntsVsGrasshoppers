@@ -39,15 +39,15 @@ public class EnemyMoveHit : MonoBehaviour {
 
 	void OnCollisionEnter(Collision other){
 		if (other.gameObject.tag == "AntPlayer"){
-			other.gameObject.transform.position = AntHome.position;
 			//make player drop all food
 			other.gameObject.GetComponent<AntCharacterMover>().LoseFood();
+			other.gameObject.transform.position = AntHome.position;
 			rend.material.color = new Color(2.4f, 0.9f, 0.9f, 0.5f);
 		}
 		if (other.gameObject.tag == "GrasshopperPlayer"){
-			other.gameObject.transform.position = GrasshopperHome.position;
 			//make player drop all food
 			other.gameObject.GetComponent<GrasshopperCharacterMover>().LoseFood();
+			other.gameObject.transform.position = GrasshopperHome.position;
 			rend.material.color = new Color(2.4f, 0.9f, 0.9f, 0.5f);
 		}
 	}
