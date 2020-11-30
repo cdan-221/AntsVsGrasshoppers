@@ -4,5 +4,14 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/AvG_MainMenu.unity
+    guid: 39103dedad8bdf346af3814b6df18b39
+  - enabled: 1
+    path: Assets/Scenes/AvG_Level1.unity
+    guid: aa79a2f3b81b67f49a53e3efd8ecc890
+  - enabled: 1
+    path: Assets/Scenes/AvG_GameOver.unity
+    guid: 8631a8a17b0e8f546b0a44f066de6257
   m_configObjects: {}
