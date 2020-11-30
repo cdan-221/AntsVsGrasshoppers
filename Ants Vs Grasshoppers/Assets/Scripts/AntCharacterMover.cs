@@ -130,20 +130,22 @@ public class AntCharacterMover : MonoBehaviour
 
 	public void LoseFood(){
 		if (slot3isOpen == false){
-			//CHANGE THIS so instead of destroying food, it unparents it: slot3Food.gameObject.parent=null;
-			//Destroy(slot3Food.gameObject);
+			slot3Food.GetComponent<Rigidbody>().isKinematic = false;
+			slot3Food.GetComponent<Collider>().enabled = true;
 			slot3Food.gameObject.transform.parent = null;
 			slot3isOpen = true;
 			Debug.Log("slot 3 food lost!");
 		}
 		if (slot2isOpen == false){
-			//Destroy(slot2Food.gameObject);
+			slot2Food.GetComponent<Rigidbody>().isKinematic = false;
+			slot2Food.GetComponent<Collider>().enabled = true;
 			slot2Food.gameObject.transform.parent = null;
 			slot2isOpen = true;
 			Debug.Log("slot 2 food lost!");
 		}
 		if (slot1isOpen == false){
-			//Destroy(slot1Food.gameObject);
+			slot1Food.GetComponent<Rigidbody>().isKinematic = false;
+			slot1Food.GetComponent<Collider>().enabled = true;
 			slot1Food.gameObject.transform.parent = null;
 			slot1isOpen = true;
 			Debug.Log("slot 1 food lost!");

@@ -199,6 +199,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7271442600501109349}
   - component: {fileID: 7271442600501109338}
+  - component: {fileID: 6343075827865095951}
   - component: {fileID: 7271442600501109339}
   - component: {fileID: 7271442600501109348}
   m_Layer: 0
@@ -242,6 +243,19 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &6343075827865095951
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7271442600501109336}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2, y: 2.5, z: 6}
+  m_Center: {x: 0, y: 0.5, z: 2}
 --- !u!114 &7271442600501109339
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -254,6 +268,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7cce4fcd6edacb40a33a218d310e6b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameHandler: {fileID: 0}
   controller: {fileID: 7271442600501109338}
   cam: {fileID: 0}
   speed: 3
@@ -265,6 +280,11 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 0
+  carryCapacity: 3
+  currentLoad: 0
+  foodSlot1: {fileID: 0}
+  foodSlot2: {fileID: 0}
+  foodSlot3: {fileID: 0}
 --- !u!114 &7271442600501109348
 MonoBehaviour:
   m_ObjectHideFlags: 0

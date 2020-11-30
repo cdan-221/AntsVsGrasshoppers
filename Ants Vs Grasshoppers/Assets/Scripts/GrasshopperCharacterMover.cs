@@ -96,6 +96,7 @@ public class GrasshopperCharacterMover : MonoBehaviour
 
 		if (other.gameObject.tag == "GrasshopperBase"){
 			PutDownFood();
+			Debug.Log("Grasshopper is home");
 		}
 	}
 
@@ -111,7 +112,7 @@ public class GrasshopperCharacterMover : MonoBehaviour
 				CurrentFood.GetComponent<Collider>().enabled = false;
 				slot1Food = CurrentFood;
 				slot1isOpen = false;
-				Debug.Log("slot 1 filled! \n current load weight = " + currentLoad);
+				Debug.Log("GH: slot 1 filled! \n current load weight = " + currentLoad);
 			}
 			else if (slot2isOpen == true){
 				currentLoad += objWeightTemp;
@@ -121,7 +122,7 @@ public class GrasshopperCharacterMover : MonoBehaviour
 				CurrentFood.GetComponent<Collider>().enabled = false;
 				slot2Food = CurrentFood;
 				slot2isOpen = false;
-				Debug.Log("slot 2 filled! \n current load weight = " + currentLoad);
+				Debug.Log("GH: slot 2 filled! \n current load weight = " + currentLoad);
 			}
 			else if (slot3isOpen == true){
 				currentLoad += objWeightTemp;
@@ -131,11 +132,11 @@ public class GrasshopperCharacterMover : MonoBehaviour
 				CurrentFood.GetComponent<Collider>().enabled = false;
 				slot3Food = CurrentFood;
 				slot3isOpen = false;
-				Debug.Log("slot 3 filled! \n current load weight = " + currentLoad);
+				Debug.Log("GH: slot 3 filled! \n current load weight = " + currentLoad);
 			}
 		}
 		else {
-			Debug.Log("Not enough room for this food! \n Current weight: " + currentLoad);
+			Debug.Log("GH: Not enough room for this food! \n Current weight: " + currentLoad);
 		}
 	}
 
@@ -143,40 +144,45 @@ public class GrasshopperCharacterMover : MonoBehaviour
 		if (slot3isOpen == false){
 			Destroy(slot3Food.gameObject);
 			slot3isOpen = true;
-			Debug.Log("slot 3 emptied! \n current load weight = " + currentLoad);
+			Debug.Log("GH: slot 3 emptied! \n current load weight = " + currentLoad);
 		}
 		if (slot2isOpen == false){
 			Destroy(slot2Food.gameObject);
 			slot2isOpen = true;
-			Debug.Log("slot 2 emptied! \n current load weight = " + currentLoad);
+			Debug.Log("GH: slot 2 emptied! \n current load weight = " + currentLoad);
 		}
 		if (slot1isOpen == false){
 			Destroy(slot1Food.gameObject);
 			slot1isOpen = true;
-			Debug.Log("slot 1 emptied! \n current load weight = " + currentLoad);
+			Debug.Log("GH: slot 1 emptied! \n current load weight = " + currentLoad);
 		}
 
 		gameHandler.GetComponent<GameHandlerAntsGrasshoppers>().updateScore("Grasshopper", currentLoad);
-		Debug.Log("Current load weight = " + currentLoad);
+		Debug.Log("GH: Current load weight = " + currentLoad);
 		currentLoad = 0;
 	}
 
 	public void LoseFood(){
 		if (slot3isOpen == false){
-			//CHANGE THIS so instead of destroying food, it unparents it: slot3Food.gameObject.parent=null;
-			Destroy(slot3Food.gameObject);
+			slot3Food.GetComponent<Rigidbody>().isKinematic = false;
+			slot3Food.GetComponent<Collider>().enabled = true;
+			slot3Food.gameObject.transform.parent = null;
 			slot3isOpen = true;
-			Debug.Log("slot 3 food lost!");
+			Debug.Log("GH: slot 3 food lost!");
 		}
 		if (slot2isOpen == false){
-			Destroy(slot2Food.gameObject);
+			slot2Food.GetComponent<Rigidbody>().isKinematic = false;
+			slot2Food.GetComponent<Collider>().enabled = true;
+			slot2Food.gameObject.transform.parent = null;
 			slot2isOpen = true;
-			Debug.Log("slot 2 food lost!");
+			Debug.Log("GH: slot 2 food lost!");
 		}
 		if (slot1isOpen == false){
-			Destroy(slot1Food.gameObject);
+			slot1Food.GetComponent<Rigidbody>().isKinematic = false;
+			slot1Food.GetComponent<Collider>().enabled = true;
+			slot1Food.gameObject.transform.parent = null;
 			slot1isOpen = true;
-			Debug.Log("slot 1 food lost!");
+			Debug.Log("GH: slot 1 food lost!");
 		}
 
 		currentLoad = 0;

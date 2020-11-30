@@ -27,8 +27,8 @@ public class GameHandlerAntsGrasshoppers : MonoBehaviour
     {
 		TimeSeconds = 0; 
 		TimeTics = 0;
-		updateScore("ant", antScore);
-		updateScore("grasshopper", antScore);
+		updateScore("ant", 0);
+		updateScore("grasshopper", 0);
 		updateGameOver();
     }
 
@@ -41,7 +41,7 @@ public class GameHandlerAntsGrasshoppers : MonoBehaviour
 	void FixedUpdate () {
 		TimeTics += 1;
 		if (TimeTics >= 60) {
-			if (TimeSeconds <= Timeframe){ 
+			if (TimeSeconds <= (Timeframe -1)){ 
 				TimeSeconds += 1;
 				updateTime();
 			}
@@ -67,18 +67,22 @@ public class GameHandlerAntsGrasshoppers : MonoBehaviour
 	public void updateTime(){
 		Text TimeTextTemp = TimeText.GetComponent<Text>();
 		TimeTextTemp.text = "TIME LEFT: " + (Timeframe - TimeSeconds);
-		if (TimeSeconds == Timeframe){
+		if (TimeSeconds >= Timeframe){
 			SceneManager.LoadScene("AvG_GameOver"); 
 			}
 		}
 
 	public void StartGame(){
+		antScore = 0;
+		grasshopperScore = 0;
 		SceneManager.LoadScene("AvG_Level1"); 
 	}
 	public void QuitGame(){
 		Application.Quit(); 
 	}
 	public void RetartGame(){
+		antScore = 0;
+		grasshopperScore = 0;
 		SceneManager.LoadScene("AvG_MainMenu"); 
 	}
 
