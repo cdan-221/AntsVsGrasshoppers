@@ -18,8 +18,12 @@ public class GameHandlerAntsGrasshoppers : MonoBehaviour
 	public GameObject antScoreText;
 	public GameObject grasshopperScoreText;
 
-	public GameObject GameOverText;
+	//public GameObject GameOverText;
 	private string winnerBug;
+
+	public GameObject BG_ANTwins;
+	public GameObject BG_GHwins;
+	public GameObject BG_tie;
 
 
     // Start is called before the first frame update
@@ -81,28 +85,41 @@ Debug.Log("I am trying to update the grasshopper score by this much: " + newScor
 	public void QuitGame(){
 		Application.Quit(); 
 	}
-	public void RetartGame(){
+	public void RestartGame(){
 		antScore = 0;
 		grasshopperScore = 0;
 		SceneManager.LoadScene("AvG_MainMenu"); 
 	}
 
+	public void Credits(){
+		SceneManager.LoadScene("AvG_Credits"); 
+	}
+
 	public void updateGameOver(){
 		if (antScore == grasshopperScore){
-			Text GameOverTextTemp = GameOverText.GetComponent<Text>();
-			GameOverTextTemp.text = "GAME OVER! \n It's a tie!";
+			BG_ANTwins.SetActive(false);
+			BG_GHwins.SetActive(false);
+			BG_tie.SetActive(true);
+			//Text GameOverTextTemp = GameOverText.GetComponent<Text>();
+			//GameOverTextTemp.text = "GAME OVER! \n It's a tie!";
 		}
 		else if (antScore >= (grasshopperScore +1)){
 			winnerBug = "Ant";
-			Text GameOverTextTemp = GameOverText.GetComponent<Text>();
-			GameOverTextTemp.text = "GAME OVER! \n The " + winnerBug + " wins!";
+			BG_ANTwins.SetActive(true);
+			BG_GHwins.SetActive(false);
+			BG_tie.SetActive(false);
+			//Text GameOverTextTemp = GameOverText.GetComponent<Text>();
+			//GameOverTextTemp.text = "GAME OVER! \n The " + winnerBug + " wins!";
 		}
 		else if (grasshopperScore >= (antScore +1)){
 			winnerBug = "Grasshopper";
-			Text GameOverTextTemp = GameOverText.GetComponent<Text>();
-			GameOverTextTemp.text = "GAME OVER! \n The " + winnerBug + " wins!";
+			BG_ANTwins.SetActive(false);
+			BG_GHwins.SetActive(true);
+			BG_tie.SetActive(false);
+			//Text GameOverTextTemp = GameOverText.GetComponent<Text>();
+			//GameOverTextTemp.text = "GAME OVER! \n The " + winnerBug + " wins!";
 		}
 
-		}
+	}
 
 }
