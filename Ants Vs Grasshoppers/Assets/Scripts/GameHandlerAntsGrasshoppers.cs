@@ -57,6 +57,7 @@ public class GameHandlerAntsGrasshoppers : MonoBehaviour
 			scoreTextAnt.text = "Ant Score: " + antScore;
 		}
 		if (playerName == "grasshopper"){
+Debug.Log("I am trying to update the grasshopper score by this much: " + newScore);
 			grasshopperScore += newScore;
 			Text scoreTextgrasshopper = grasshopperScoreText.GetComponent<Text>();
 			scoreTextgrasshopper.text = "Grasshopper Score: " + grasshopperScore;

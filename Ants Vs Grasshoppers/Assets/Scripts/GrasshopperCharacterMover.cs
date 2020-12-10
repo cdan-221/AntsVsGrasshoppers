@@ -5,8 +5,8 @@ using UnityEngine;
 public class GrasshopperCharacterMover : MonoBehaviour
 {
 	public GameHandlerAntsGrasshoppers gameHandler;
-	public CharacterController controller;
-	//Rigidbody rb;
+	//public CharacterController controller;
+	Rigidbody rb;
 	//Animator anim;
 	public Transform cam;
 
@@ -41,7 +41,7 @@ public class GrasshopperCharacterMover : MonoBehaviour
 
 	void Start(){
 		//anim = gameObject.GetComponentInChildren<Animator>();
-		//rb = gameObject.GetComponent<Rigidbody>();
+		rb = gameObject.GetComponent<Rigidbody>();
 	}
 
 
@@ -55,20 +55,20 @@ public class GrasshopperCharacterMover : MonoBehaviour
 			float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
 			transform.rotation = Quaternion.Euler(0f, angle, 0f);
 			Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
-			controller.Move(moveDir.normalized * speed * Time.deltaTime);
-			//rb.MovePosition(transform.position + moveDir * speed * Time.deltaTime);
+			//controller.Move(moveDir.normalized * speed * Time.deltaTime);
+			rb.MovePosition(transform.position + moveDir * speed * Time.deltaTime);
 		}
 
 		//JUMP
 
-		groundedPlayer = controller.isGrounded;
-		if (Input.GetButtonDown("Jump") && groundedPlayer)
-		{
+		//groundedPlayer = controller.isGrounded;
+		//if (Input.GetButtonDown("Jump") && groundedPlayer)
+		if (Input.GetButtonDown("Jump")){
 			playerVelocity.y += Mathf.Sqrt(jumpHeight * -2.0f * gravity);
 		}
 
 		playerVelocity.y += gravity * Time.deltaTime;
-		controller.Move(playerVelocity * Time.deltaTime);
+		//controller.Move(playerVelocity * Time.deltaTime);
 
 
 		//jump: https://docs.unity3d.com/ScriptReference/CharacterController.Move.html?_ga=2.64109231.1055814972.1604523466-1492216195.1601062187
