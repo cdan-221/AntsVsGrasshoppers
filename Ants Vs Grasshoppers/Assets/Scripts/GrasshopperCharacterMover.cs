@@ -15,7 +15,7 @@ public class GrasshopperCharacterMover : MonoBehaviour
 	private float turnSmoothVelocity;
 
 	public float gravity = -9.81f;
-	public float jumpHeight = 1;
+	public float jumpHeight = 10;
 	private Vector3 velocity;
 	//private bool isGrounded;
 	public Transform groundCheck;
@@ -60,17 +60,19 @@ public class GrasshopperCharacterMover : MonoBehaviour
 		}
 
 		//JUMP
+		if (Input.GetKeyDown(KeyCode.Space)){
+			rb.AddForce(Vector3.up * jumpHeight);
+			rb.AddForce(Vector3.forward * jumpHeight);
+		}
 
 		//groundedPlayer = controller.isGrounded;
 		//if (Input.GetButtonDown("Jump") && groundedPlayer)
-		if (Input.GetButtonDown("Jump")){
-			playerVelocity.y += Mathf.Sqrt(jumpHeight * -2.0f * gravity);
-		}
+		//if (Input.GetButtonDown("Jump")){
+		//	playerVelocity.y += Mathf.Sqrt(jumpHeight * -2.0f * gravity);
+		//}
 
-		playerVelocity.y += gravity * Time.deltaTime;
+		//playerVelocity.y += gravity * Time.deltaTime;
 		//controller.Move(playerVelocity * Time.deltaTime);
-
-
 		//jump: https://docs.unity3d.com/ScriptReference/CharacterController.Move.html?_ga=2.64109231.1055814972.1604523466-1492216195.1601062187
 
 //		isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
@@ -157,7 +159,7 @@ public class GrasshopperCharacterMover : MonoBehaviour
 			Debug.Log("GH: slot 1 emptied! \n current load weight = " + currentLoad);
 		}
 
-		gameHandler.GetComponent<GameHandlerAntsGrasshoppers>().updateScore("Grasshopper", currentLoad);
+		gameHandler.GetComponent<GameHandlerAntsGrasshoppers>().updateScore("grasshopper", currentLoad);
 		Debug.Log("GH: Current load weight = " + currentLoad);
 		currentLoad = 0;
 	}
