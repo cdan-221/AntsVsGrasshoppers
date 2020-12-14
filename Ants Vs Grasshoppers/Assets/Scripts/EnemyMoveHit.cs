@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyMoveHit : MonoBehaviour {
 
 	public float speed = 4f;
+	public Transform currentTarget;
 	public Transform AntTarget;
 	public Transform GrasshopperTarget;
 
@@ -28,13 +29,26 @@ public class EnemyMoveHit : MonoBehaviour {
 		//if (gameControllerLocation != null) {
 		//	gameControllerObj = gameControllerLocation.GetComponent<GameController> ();
 		//}
+		
 	}
 
 	void Update () {
-		Vector3 targetPos = new Vector3(AntTarget.position.x, transform.position.y , AntTarget.position.z);
-		if (AntTarget != null){
-			transform.position = Vector3.MoveTowards (transform.position, targetPos, speed * Time.deltaTime);
-		}
+		float antDistance = Vector3.Distance(AntTarget.position, rangePoint.position);
+		float ghDistance = Vector3.Distance(GrasshopperTarget.position, rangePoint.position);
+		if ((antDistance >= attackRange + 1) && (ghDistance >= attackRange + 1)){currentTarget = rangePoint;}
+		else if ((antDistance <= attackRange) && (ghDistance >= attackRange + 1)){currentTarget = AntTarget;}
+		else if ((antDistance >= attackRange +1) && (ghDistance <= attackRange)){currentTarget = GrasshopperTarget;}
+		else if ((antDistance <= attackRange) && (ghDistance <= attackRange)){
+			float antRange = Vector3.Distance(AntTarget.position, gameObject.transform.position);
+			float ghRange = Vector3.Distance(GrasshopperTarget.position, gameObject.transform.position);
+			int AntRand = Random.Range (1, 5);
+			int GHRand = Random.Range (1, 5);
+			if (antRange + AntRand > ghRange + GHRand){currentTarget = AntTarget;}
+			else if (ghRange + GHRand > antRange + AntRand){currentTarget = GrasshopperTarget;}
+			}
+		
+		Vector3 targetPos = new Vector3(currentTarget.position.x, transform.position.y , currentTarget.position.z);
+		transform.position = Vector3.MoveTowards (transform.position, targetPos, speed * Time.deltaTime);
 	}
 
 	void OnCollisionEnter(Collision other){
