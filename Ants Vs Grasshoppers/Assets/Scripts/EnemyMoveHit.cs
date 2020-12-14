@@ -36,16 +36,17 @@ public class EnemyMoveHit : MonoBehaviour {
 		float antDistance = Vector3.Distance(AntTarget.position, rangePoint.position);
 		float ghDistance = Vector3.Distance(GrasshopperTarget.position, rangePoint.position);
 		if ((antDistance >= attackRange + 1) && (ghDistance >= attackRange + 1)){currentTarget = rangePoint;}
+		else if ((antDistance <= attackRange) && (ghDistance <= attackRange)){
+			//float antRange = Vector3.Distance(AntTarget.position, gameObject.transform.position);
+			//float ghRange = Vector3.Distance(GrasshopperTarget.position, gameObject.transform.position);
+			//int AntRand = Random.Range (1, 5);
+			//int GHRand = Random.Range (1, 5);
+			if (antDistance > ghDistance){currentTarget = AntTarget;}
+			else if (ghDistance > antDistance){currentTarget = GrasshopperTarget;}
+			}
 		else if ((antDistance <= attackRange) && (ghDistance >= attackRange + 1)){currentTarget = AntTarget;}
 		else if ((antDistance >= attackRange +1) && (ghDistance <= attackRange)){currentTarget = GrasshopperTarget;}
-		else if ((antDistance <= attackRange) && (ghDistance <= attackRange)){
-			float antRange = Vector3.Distance(AntTarget.position, gameObject.transform.position);
-			float ghRange = Vector3.Distance(GrasshopperTarget.position, gameObject.transform.position);
-			int AntRand = Random.Range (1, 5);
-			int GHRand = Random.Range (1, 5);
-			if (antRange + AntRand > ghRange + GHRand){currentTarget = AntTarget;}
-			else if (ghRange + GHRand > antRange + AntRand){currentTarget = GrasshopperTarget;}
-			}
+
 		
 		Vector3 targetPos = new Vector3(currentTarget.position.x, transform.position.y , currentTarget.position.z);
 		transform.position = Vector3.MoveTowards (transform.position, targetPos, speed * Time.deltaTime);
@@ -56,13 +57,13 @@ public class EnemyMoveHit : MonoBehaviour {
 			//make player drop all food
 			other.gameObject.GetComponent<AntCharacterMover>().LoseFood();
 			other.gameObject.transform.position = AntHome.position;
-			rend.material.color = new Color(2.4f, 0.9f, 0.9f, 0.5f);
+			StartCoroutine(colorChange());
 		}
 		if (other.gameObject.tag == "GrasshopperPlayer"){
 			//make player drop all food
 			other.gameObject.GetComponent<GrasshopperCharacterMover>().LoseFood();
 			other.gameObject.transform.position = GrasshopperHome.position;
-			rend.material.color = new Color(2.4f, 0.9f, 0.9f, 0.5f);
+			StartCoroutine(colorChange());
 		}
 	}
 
@@ -80,6 +81,12 @@ public class EnemyMoveHit : MonoBehaviour {
    void OnDrawGizmosSelected(){
         if (rangePoint == null) return;
         Gizmos.DrawWireSphere(rangePoint.position, attackRange);
+   }
+   
+   IEnumerator colorChange(){
+	   rend.material.color = new Color(2.4f, 0.9f, 0.9f, 0.5f);
+	   yield return new WaitForSeconds(1.0f);
+	   rend.material.color = Color.white;
    }
 
 }

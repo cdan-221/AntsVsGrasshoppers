@@ -62,8 +62,10 @@ public class GrasshopperCharacterMover : MonoBehaviour
 		//JUMP
 		if (Input.GetKeyDown(KeyCode.Space)){
 			rb.AddForce(Vector3.up * jumpHeight);
-			rb.AddForce(Vector3.forward * jumpHeight);
+			rb.AddRelativeForce(Vector3.forward * jumpHeight);
 		}
+		
+		//Vector3 localForward = transform.worldToLocalMatrix.MultiplyVector(transform.forward);
 
 		//groundedPlayer = controller.isGrounded;
 		//if (Input.GetButtonDown("Jump") && groundedPlayer)
