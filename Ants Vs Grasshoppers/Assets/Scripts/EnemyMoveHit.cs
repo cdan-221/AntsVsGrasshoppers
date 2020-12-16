@@ -11,6 +11,7 @@ public class EnemyMoveHit : MonoBehaviour {
 
 	//public int EnemyLives = 3;
 	private Renderer rend;
+	private Animator anim;
 	//private GameController gameControllerObj;
 
 	public Transform AntHome;
@@ -21,6 +22,7 @@ public class EnemyMoveHit : MonoBehaviour {
 
 	void Start () {
 		rend = GetComponentInChildren<Renderer> ();
+		anim = GetComponentInChildren<Animator> ();
 
 		//if (GameObject.FindGameObjectWithTag ("Player") != null) {
 		//	target = GameObject.FindGameObjectWithTag ("Player").GetComponent<Transform> ();
@@ -35,26 +37,26 @@ public class EnemyMoveHit : MonoBehaviour {
 	void Update () {
 		float antDistance = Vector3.Distance(AntTarget.position, rangePoint.position);
 		float ghDistance = Vector3.Distance(GrasshopperTarget.position, rangePoint.position);
-		if ((antDistance >= attackRange + 1) && (ghDistance >= attackRange + 1)){currentTarget = rangePoint;}
+		float birdDistance = Vector3.Distance(transform.position, rangePoint.position);
+		if ((antDistance >= attackRange + 1) && (ghDistance >= attackRange + 1)){currentTarget = rangePoint; anim.SetBool("Walk", true); anim.SetBool("Chase", false);}
+		else if ((antDistance >= attackRange + 1) && (ghDistance >= attackRange + 1) && (birdDistance <= 5)){anim.SetBool("Walk", false); anim.SetBool("Chase", false);}
 		else if ((antDistance <= attackRange) && (ghDistance <= attackRange)){
-			//float antRange = Vector3.Distance(AntTarget.position, gameObject.transform.position);
-			//float ghRange = Vector3.Distance(GrasshopperTarget.position, gameObject.transform.position);
-			//int AntRand = Random.Range (1, 5);
-			//int GHRand = Random.Range (1, 5);
 			if (antDistance > ghDistance){currentTarget = AntTarget;}
-			else if (ghDistance > antDistance){currentTarget = GrasshopperTarget;}
+			else if (ghDistance > antDistance){currentTarget = GrasshopperTarget; anim.SetBool("Chase", true); anim.SetBool("Walk", false);}
 			}
-		else if ((antDistance <= attackRange) && (ghDistance >= attackRange + 1)){currentTarget = AntTarget;}
-		else if ((antDistance >= attackRange +1) && (ghDistance <= attackRange)){currentTarget = GrasshopperTarget;}
+		else if ((antDistance <= attackRange) && (ghDistance >= attackRange + 1)){currentTarget = AntTarget; anim.SetBool("Chase", true);anim.SetBool("Walk", false);}
+		else if ((antDistance >= attackRange +1) && (ghDistance <= attackRange)){currentTarget = GrasshopperTarget; anim.SetBool("Chase", true);anim.SetBool("Walk", false);}
 
 		
 		Vector3 targetPos = new Vector3(currentTarget.position.x, transform.position.y , currentTarget.position.z);
 		transform.position = Vector3.MoveTowards (transform.position, targetPos, speed * Time.deltaTime);
+		transform.LookAt(targetPos);
 	}
 
 	void OnCollisionEnter(Collision other){
 		if (other.gameObject.tag == "AntPlayer"){
 			//make player drop all food
+			anim.SetBool("Chase", false);
 			other.gameObject.GetComponent<AntCharacterMover>().LoseFood();
 			other.gameObject.transform.position = AntHome.position;
 			StartCoroutine(colorChange());
