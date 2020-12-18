@@ -5,8 +5,8 @@ using UnityEngine;
 public class AntCharacterMover : MonoBehaviour
 {
 	public GameHandlerAntsGrasshoppers gameHandler;
-	Rigidbody rb;
-	//Animator anim;
+	public Rigidbody rb;
+	public Animator anim;
 	public Transform cam;
 
 	public float speed = 6f;
@@ -28,7 +28,7 @@ public class AntCharacterMover : MonoBehaviour
 
 
 	void Start(){
-		//anim = gameObject.GetComponentInChildren<Animator>();
+		anim = gameObject.GetComponentInChildren<Animator>();
 		rb = gameObject.GetComponent<Rigidbody>();
 	}
 
@@ -44,7 +44,14 @@ public class AntCharacterMover : MonoBehaviour
 			Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
 			//controller.Move(moveDir.normalized * speed * Time.deltaTime);
 			rb.MovePosition(transform.position + moveDir * speed * Time.deltaTime);
+			anim.SetBool("Walk", true);
 		}
+		
+		if (direct.magnitude < 0.1f) {
+			anim.SetBool("Walk", false);
+			
+		}
+		
 	}
 
 	public void OnTriggerEnter(Collider other){
@@ -152,6 +159,7 @@ public class AntCharacterMover : MonoBehaviour
 		}
 
 		currentLoad = 0;
+		anim.SetTrigger("Hurt");
 	}
 
 } 
