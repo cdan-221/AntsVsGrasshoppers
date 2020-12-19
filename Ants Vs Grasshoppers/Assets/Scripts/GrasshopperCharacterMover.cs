@@ -6,8 +6,8 @@ public class GrasshopperCharacterMover : MonoBehaviour
 {
 	public GameHandlerAntsGrasshoppers gameHandler;
 	//public CharacterController controller;
-	private Rigidbody rb;
-	private Animator anim;
+	public Rigidbody rb;
+	public Animator anim;
 	public Transform cam;
 
 	public float speed = 3f;
@@ -62,12 +62,12 @@ public class GrasshopperCharacterMover : MonoBehaviour
 		
 		if (direct.magnitude < 0.1f) {
 			anim.SetBool("Walk", false);
-			
 		}
 		
 
 		//JUMP
 		if (Input.GetKeyDown(KeyCode.Space)){
+			anim.SetTrigger("Jump");
 			rb.AddForce(Vector3.up * jumpHeight);
 			rb.AddRelativeForce(Vector3.forward * jumpHeight);
 		}
@@ -174,6 +174,7 @@ public class GrasshopperCharacterMover : MonoBehaviour
 	}
 
 	public void LoseFood(){
+		anim.SetTrigger("Hurt");
 		if (slot3isOpen == false){
 			slot3Food.GetComponent<Rigidbody>().isKinematic = false;
 			slot3Food.GetComponent<Collider>().enabled = true;
@@ -195,9 +196,7 @@ public class GrasshopperCharacterMover : MonoBehaviour
 			slot1isOpen = true;
 			Debug.Log("GH: slot 1 food lost!");
 		}
-
 		currentLoad = 0;
-		anim.SetTrigger("Hurt");
 	}
 
 } 
