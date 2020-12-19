@@ -6,8 +6,8 @@ public class GrasshopperCharacterMover : MonoBehaviour
 {
 	public GameHandlerAntsGrasshoppers gameHandler;
 	//public CharacterController controller;
-	Rigidbody rb;
-	//Animator anim;
+	private Rigidbody rb;
+	private Animator anim;
 	public Transform cam;
 
 	public float speed = 3f;
@@ -40,7 +40,7 @@ public class GrasshopperCharacterMover : MonoBehaviour
 
 
 	void Start(){
-		//anim = gameObject.GetComponentInChildren<Animator>();
+		anim = gameObject.GetComponentInChildren<Animator>();
 		rb = gameObject.GetComponent<Rigidbody>();
 	}
 
@@ -57,7 +57,14 @@ public class GrasshopperCharacterMover : MonoBehaviour
 			Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
 			//controller.Move(moveDir.normalized * speed * Time.deltaTime);
 			rb.MovePosition(transform.position + moveDir * speed * Time.deltaTime);
+			anim.SetBool("Walk", true);
 		}
+		
+		if (direct.magnitude < 0.1f) {
+			anim.SetBool("Walk", false);
+			
+		}
+		
 
 		//JUMP
 		if (Input.GetKeyDown(KeyCode.Space)){
@@ -190,6 +197,7 @@ public class GrasshopperCharacterMover : MonoBehaviour
 		}
 
 		currentLoad = 0;
+		anim.SetTrigger("Hurt");
 	}
 
 } 
