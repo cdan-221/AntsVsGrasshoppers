@@ -8,6 +8,7 @@ TagManager:
   - GrasshopperPlayer
   - AntBase
   - GrasshopperBase
+  - PauseMenuSlider
   layers:
   - Default
   - TransparentFX
