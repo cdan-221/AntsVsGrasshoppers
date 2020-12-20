@@ -50,6 +50,9 @@ public class GrasshopperCharacterMover : MonoBehaviour
 		float vert = Input.GetAxisRaw("P2Vert");
 		Vector3 direct = new Vector3(horiz, 0f, vert).normalized;
 
+		if ((horiz != 0f) || (vert != 0f)){anim.SetBool("Walk", true);}
+		else {anim.SetBool("Walk", false);}
+
 		if (direct.magnitude >= 0.1f) {
 			float targetAngle = Mathf.Atan2(direct.x, direct.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
 			float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
@@ -57,11 +60,11 @@ public class GrasshopperCharacterMover : MonoBehaviour
 			Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
 			//controller.Move(moveDir.normalized * speed * Time.deltaTime);
 			rb.MovePosition(transform.position + moveDir * speed * Time.deltaTime);
-			anim.SetBool("Walk", true);
+			//anim.SetBool("Walk", true);
 		}
 		
 		if (direct.magnitude < 0.1f) {
-			anim.SetBool("Walk", false);
+			//anim.SetBool("Walk", false);
 		}
 		
 
