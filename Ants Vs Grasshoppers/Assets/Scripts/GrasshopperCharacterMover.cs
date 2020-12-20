@@ -71,6 +71,7 @@ public class GrasshopperCharacterMover : MonoBehaviour
 		//JUMP
 		if (Input.GetKeyDown(KeyCode.Space)){
 			anim.SetTrigger("Jump");
+			
 			rb.AddForce(Vector3.up * jumpHeight);
 			rb.AddRelativeForce(Vector3.forward * jumpHeight);
 		}
